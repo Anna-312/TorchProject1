@@ -7,7 +7,7 @@ using namespace std;
 
 
 int main() {
-	//Загрузка изображения
+	//Р—Р°РіСЂСѓР·РєР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 	cv::Mat img = cv::imread("image_0.png");
 	cv::Size target_size(28, 28);
 	cv::resize(img, img, target_size);
@@ -23,11 +23,11 @@ int main() {
 		throw new std::runtime_error("incorrect image depth!");
 	}
 	torch::NoGradGuard no_grad;
-	//Загрузка модели из файла
+	//Р—Р°РіСЂСѓР·РєР° РјРѕРґРµР»Рё РёР· С„Р°Р№Р»Р°
 	torch::jit::script::Module module = torch::jit::load("mnist.pth");
-	//Преобразование изображения в тензор
+	//РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РІ С‚РµРЅР·РѕСЂ
 	torch::Tensor tensor_img = torch::from_blob(img.data, { 1, 28, 28 }, torch::kFloat32);
-	//Получение и вывод результата работы нейросети
+	//РџРѕР»СѓС‡РµРЅРёРµ Рё РІС‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹ РЅРµР№СЂРѕСЃРµС‚Рё
 	at::Tensor output = module.forward({ tensor_img }).toTensor();
 	int result = output.argmax().item().to<int>();
 	cout << "Result: " << result;
